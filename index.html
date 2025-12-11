@@ -1,368 +1,361 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salman Faris - Aspiring Web Developer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Salman Faris | The Gold Standard</title>
     
-    <meta name="theme-color" id="theme-color-meta" content="#f8fafc">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fonts: Cinzel (Royal Serif) & Inter (Clean Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        royal: ['"Cinzel"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            100: '#faeec7',
+                            200: '#f5e3a3',
+                            300: '#efd373',
+                            400: '#e9c141',
+                            500: '#d4af37', /* Classic Gold */
+                            600: '#aa8c2c',
+                            700: '#806921',
+                        },
+                        pureblack: '#000000',
+                    },
+                    animation: {
+                        'shine-slow': 'shine 6s linear infinite', /* Slow shine for main name */
+                        'shine-fast': 'shine 3s linear infinite', /* Fast shine for headers */
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-up': 'fadeUp 1s ease-out forwards',
+                        'scroll-down': 'scroll 1.5s ease-in-out infinite', /* Vertical movement for scroll indicator */
+                    },
+                    keyframes: {
+                        shine: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '100%': { backgroundPosition: '200% 50%' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        scroll: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(8px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        /* Define the new primary accent color: Maroon/Burgundy (Tailwind Red-700) for LIGHT MODE */
-        :root {
-            --color-accent: #b91c1c; /* Maroon/Red-700 */
-        }
-
-        /* Base styles are theme-dependent and set by JS/Tailwind classes on the body */
+        /* --- CORE STYLES --- */
         body {
-            /* Changed to Professional Sans-serif for readability (Inter) */
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            /* Shorter body transition, as the elements will handle the visual flow with delays */
-            transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out; 
-        }
-        
-        /* New class to apply the luxury serif font to headings and classy elements */
-        .font-luxury-serif {
-            font-family: 'Playfair Display', serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        /* NEW: Master transition class for all elements that need to smoothly change theme colors */
-        .theme-transition-element {
-            /* Use a long, smooth transition with an organic cubic-bezier curve */
-            transition: color 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        background-color 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        border-color 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        box-shadow 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        /* Staggering the transitions to create the ripple effect (Header -> Main -> Footer) */
-        .delay-0 { transition-delay: 0s; }
-        .delay-150 { transition-delay: 0.15s; }
-        .delay-300 { transition-delay: 0.30s; }
-
-
-        /* Dark Mode Styles (Pure Black background) */
-        body.theme-dark {
-            background-color: #000000; /* Pure black */
-            color: #e2e8f0; /* Slate-200: Light Text */
-            /* NEW: Dark Green Accent (Emerald-700) */
-            --color-accent-secondary: #047857; 
-        }
-        body.theme-dark .text-primary-header { color: #ffffff; }
-        body.theme-dark .text-secondary-p { color: #94a3b8; /* Slate-400 */ }
-        
-        /* --- DYNAMIC HEADER STYLES (DARK MODE) --- */
-        /* Logo (Salmanfaris) - White */
-        body.theme-dark .text-logo-primary { color: #ffffff; }
-        body.theme-dark .text-logo-primary:hover { color: #d1d5db; } /* gray-300 */
-        /* Theme Toggle Button - Subtle White */
-        body.theme-dark .toggle-button-style {
-            background-color: rgba(255, 255, 255, 0.1); 
-            color: #ffffff;
-        }
-        body.theme-dark .toggle-button-style:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-        /* Header Border - Subtle White */
-        body.theme-dark .border-primary { border-color: rgba(255, 255, 255, 0.1); } 
-        /* ----------------------------------------- */
-        
-        /* --- DARK MODE ACCENT OVERRIDES (Red -> Green) --- */
-        /* Target all icons and borders using the original red-700 class */
-        body.theme-dark .text-red-700 { color: var(--color-accent-secondary) !important; }
-        body.theme-dark .border-red-700 { border-color: var(--color-accent-secondary) !important; }
-
-        /* CTA Button override */
-        body.theme-dark .bg-red-700 { background-color: var(--color-accent-secondary) !important; }
-        body.theme-dark .bg-red-700:hover { background-color: #03543d !important; /* Darker green for hover */ }
-        /* ------------------------------------------------ */
-
-        
-        /* New: Stylish radial gradient background glow for the whole app in dark mode */
-        body.theme-dark::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            /* Updated RGBA for Dark Green */
-            background: radial-gradient(circle at 10% 90%, rgba(4, 120, 87, 0.08) 0%, transparent 40%),
-                        radial-gradient(circle at 90% 10%, rgba(4, 120, 87, 0.08) 0%, transparent 40%);
-            z-index: -1;
+        /* --- THE LIQUID GOLD GRADIENT (Shared) --- */
+        .gradient-gold {
+            background: linear-gradient(
+                to right, 
+                #BF953F, 
+                #FCF6BA, 
+                #B38728, 
+                #FBF5B7, 
+                #AA771C,
+                #BF953F
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        /* Header backdrop styles */
-        body.theme-dark .bg-header { 
-            background-color: rgba(0, 0, 0, 0.05);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+        /* Dark Mode Specifics - PURE BLACK */
+        .dark body {
+            background-color: #000000;
+            color: #d4af37; /* Fallback Gold */
         }
         
-        /* Refined Card Look for Dark Mode (Updating border colors to Green RGBA) */
-        body.theme-dark .bg-card { 
-            background-color: #1a1a1a;
-            border: 1px solid rgba(4, 120, 87, 0.2);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.4);
+        /* Thin gold lines for sections in dark mode */
+        .dark .luxury-border {
+            border: 1px solid rgba(191, 149, 63, 0.3);
         }
         
-        body.theme-dark .bg-sub-card { 
-            background-color: #222222;
-            border: 1px solid rgba(4, 120, 87, 0.2);
-        }
-        
-        /* Update Shadow Accents to Dark Green RGBA */
-        body.theme-dark .shadow-accent { 
-            box-shadow: 0 10px 20px -3px rgba(4, 120, 87, 0.4), 0 4px 6px -2px rgba(4, 120, 87, 0.2); 
+        /* Light Mode Specifics - High Fashion White */
+        .light body {
+            background-color: #ffffff;
+            color: #111111;
         }
 
-        
-        /* Light Mode Styles (Monochrome Gray with Maroon Accent) */
-        body.theme-light {
-            background-color: #f8fafc; /* Slate-50: Very Light Gray */
-            color: #1e293b; /* Slate-800: Dark Gray */
-        }
-        body.theme-light .text-primary-header { color: #1e293b; }
-        body.theme-light .text-secondary-p { color: #64748b; /* Slate-500 */ }
-        
-        /* --- DYNAMIC HEADER STYLES (LIGHT MODE - Uses original maroon) --- */
-        /* Logo (Salmanfaris) - Maroon */
-        body.theme-light .text-logo-primary { color: var(--color-accent); }
-        body.theme-light .text-logo-primary:hover { color: #991b1b; } /* red-800 */
-        /* Theme Toggle Button - Maroon Accent */
-        body.theme-light .toggle-button-style {
-            background-color: rgba(185, 28, 28, 0.1); /* red-700/10 */
-            color: var(--color-accent); /* Maroon */
-        }
-        body.theme-light .toggle-button-style:hover {
-            background-color: rgba(185, 28, 28, 0.3); /* red-700/30 */
-        }
-        /* Header Border - Default Light */
-        body.theme-light .border-primary { border-color: #e2e8f0; /* Slate-200 border */ }
-        /* ----------------------------------------- */
-        
-        /* Header backdrop styles */
-        body.theme-light .bg-header { 
-            background-color: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
-        }
-        
-        body.theme-light .bg-card { background-color: #ffffff; }
-        body.theme-light .bg-sub-card { background-color: #f0f4f8; /* Very Light Gray for skill */ }
-        body.theme-light .shadow-accent { 
-            box-shadow: 0 10px 15px -3px rgba(185, 28, 28, 0.1), 0 4px 6px -2px rgba(185, 28, 28, 0.05); 
+        /* Light mode gradient adjustment for better contrast */
+        .light .gradient-gold {
+            background: linear-gradient(
+                to right, 
+                #8a6e2f, 
+                #d4af37, 
+                #6b541f, 
+                #d4af37, 
+                #8a6e2f
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        /* Custom animation for the CTA button shadow pulse */
-        @keyframes pulse-shadow {
-            /* Updated RGBA for Dark Green in Dark Mode, Maroon in Light Mode */
-            0% { box-shadow: 0 0 0 0 var(--shadow-pulse-color, rgba(185, 28, 28, 0.7)); }
-            70% { box-shadow: 0 0 0 10px var(--shadow-pulse-color, rgba(185, 28, 28, 0)); }
-            100% { box-shadow: 0 0 0 0 var(--shadow-pulse-color, rgba(185, 28, 28, 0)); }
-        }
-        /* New definition for dark mode pulse color */
-        body.theme-dark .cta-pulse {
-            --shadow-pulse-color: rgba(4, 120, 87, 0.7);
-        }
-        .cta-pulse:hover {
-            animation: pulse-shadow 1.5s infinite;
-        }
-        
-        /* Dynamic hover effect for focus cards (Updating shadow to Green RGBA in Dark Mode) */
-        .focus-card:hover {
-            transform: translateY(-4px) rotateZ(0.5deg); /* Lift and subtle tilt */
-            box-shadow: 0 15px 30px rgba(185, 28, 28, 0.3); /* Default Maroon shadow for Light Mode */
-        }
-        body.theme-dark .focus-card:hover {
-             /* Stronger shadow using Dark Green RGBA for Dark Mode */
-            box-shadow: 0 15px 30px rgba(4, 120, 87, 0.3); 
+        .light .luxury-border {
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        /* Custom scrollbar styling */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
-        body.theme-dark ::-webkit-scrollbar-thumb { background: var(--color-accent-secondary); } /* Use Dark Green */
-        body.theme-dark ::-webkit-scrollbar-track { background: #000000; }
+        /* Hide Scrollbar for ultra-clean look */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #BF953F;
+        }
     </style>
 </head>
-<body class="selection:bg-red-700 selection:text-white theme-light">
+<body class="dark antialiased selection:bg-gold-500 selection:text-black">
 
-    <header class="sticky top-0 z-50 border-b bg-header border-primary theme-transition-element delay-0" id="header-nav">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-extrabold text-logo-primary theme-transition-element transition duration-300 font-luxury-serif">
-                Salmanfaris
-            </a>
-            <div class="flex items-center space-x-6 text-sm font-medium">
-                <button id="theme-toggle" class="p-2 rounded-full toggle-button-style theme-transition-element transition duration-200" aria-label="Toggle theme mode">
-                    <i data-lucide="sun" class="w-5 h-5" id="theme-icon"></i>
-                </button>
-            </div>
-        </nav>
-    </header>
+    <!-- DIRECT DARK MODE TOGGLE BUTTON (Icon now updates dynamically) -->
+    <button id="dark-mode-button" class="fixed top-6 right-6 z-50 p-3 rounded-full border border-gold-500/50 dark:border-gold-500/30 text-gold-500/90 hover:text-gold-300 hover:bg-gold-500/5 transition-all duration-300 backdrop-blur-sm shadow-lg" aria-label="Toggle Dark Mode">
+        <!-- Added id="theme-icon" here. The JS will control the icon name and rendering. -->
+        <i id="theme-icon" data-lucide="sun-moon" class="w-5 h-5"></i>
+    </button>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 theme-transition-element delay-150">
+    <main class="relative z-10">
+        
+        <!-- HERO SECTION: THE GOLDEN REVEAL -->
+        <section class="h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden">
+            
+            <!-- Subtle background radial for depth in pure black -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold-500/5 blur-[150px] rounded-full pointer-events-none opacity-50"></div>
 
-        <section id="home" class="min-h-[70vh] flex items-center mb-24 text-center">
-            <div class="max-w-4xl mx-auto">
-                
-                <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black leading-tight text-primary-header theme-transition-element mb-6 font-luxury-serif">
-                   Hello, I am Aspiring Web Developer.
-                </h1>
-                
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-light text-secondary-p theme-transition-element mb-8 opacity-75 font-luxury-serif">
-                    Learning to build the web applications.
-                </h2>
-                <p class="text-lg text-secondary-p theme-transition-element max-w-2xl mx-auto">
-                    I am focused on learning how to build web applications from start to finish. This involves setting up data storage (MongoDB), creating reliable connections (Express/Node.js), and designing modern user screens (React). I'm excited to put the JavaScript ecosystem to work!
+            <div class="relative z-10 animate-fade-up">
+                <p class="text-[10px] md:text-xs uppercase tracking-[0.5em] mb-6 opacity-60 font-sans">
+                    Digital Portfolio
                 </p>
-                <!-- Removed the "See What I'm Learning" button -->
+
+                <!-- THE NAME with LIQUID GOLD EFFECT (Single line, Semibold, Slower Shine) -->
+                <h1 class="font-royal text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tight leading-none mb-6 gradient-gold animate-shine-slow animate-float">
+                    Salman Faris
+                </h1>
+
+                <div class="h-px w-24 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mb-8 opacity-50"></div>
+
+                <p class="text-sm md:text-base font-light tracking-[0.2em] uppercase opacity-80 max-w-lg mx-auto">
+                    Aspiring Web Developer
+                </p>
+            </div>
+
+            <!-- Scroll Indicator (New: Animated Arrow) -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 text-gold-500">
+                <!-- Using chevrons-down for a smoother, elegant scroll representation -->
+                <i data-lucide="chevrons-down" class="w-6 h-6 animate-scroll-down"></i>
             </div>
         </section>
 
-        <section id="about" class="pt-16 pb-20 border-t border-primary theme-transition-element">
-            <h3 class="text-4xl font-bold text-primary-header theme-transition-element mb-12 text-center font-luxury-serif">My Learning Journey into Web Development</h3>
-            <div class="bg-card theme-transition-element p-8 sm:p-12 rounded-xl shadow-2xl shadow-accent/10 border border-primary grid md:grid-cols-1 gap-10 items-center">
+        <!-- ABOUT: MINIMALISM -->
+        <section class="py-32 px-6 md:px-12 max-w-5xl mx-auto">
+            <!-- Header with faster shine -->
+            <h2 class="font-royal text-3xl md:text-4xl mb-16 text-center gradient-gold animate-shine-fast">The Philosophy</h2>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="text-lg md:text-xl font-light leading-relaxed text-justify opacity-80">
+                    <!-- Updated Text 1 -->
+                    <p class="mb-8">
+                        I perceive digital craftsmanship as the ultimate pursuit of elegance. Every line of code is an intentional stroke towards a flawless, enduring structure.
+                    </p>
+                    <!-- Updated Text 2 -->
+                    <p>
+                        My journey is focused on the <span class="text-gold-500 border-b border-gold-500/30 pb-0.5">MERN Stack</span>. I am focused on the relentless refinement of foundational technologies, ensuring that scale is met with unwavering performance.
+                    </p>
+                </div>
+                <!-- Updated Quote Block (No Attribution) -->
+                <div class="luxury-border p-8 md:p-12 text-center rotate-1 hover:rotate-0 transition-transform duration-700">
+                    <span class="block text-6xl mb-4 opacity-20 font-royal">"</span>
+                    <p class="font-royal text-2xl md:text-3xl italic leading-snug">
+                        Excellence is not an act, but a habit.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENTO GRID: PURE BLACK & GOLD -->
+        <section class="py-20 px-6 max-w-6xl mx-auto">
+            <div class="flex items-center justify-between mb-12">
+                <!-- Header with faster shine -->
+                <h3 class="font-royal text-2xl md:text-3xl gradient-gold animate-shine-fast">Core Focus</h3>
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-gold-500/30 to-transparent ml-8"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[200px]">
                 
-                <div>
-                    <p class="text-secondary-p theme-transition-element text-lg mb-6 leading-relaxed">
-                        I am currently starting my journey into Web Development. I am passionate about building things that people can use online, from the visible screen (React) to the data storage (MongoDB).
-                    </p>
-                    <p class="text-secondary-p theme-transition-element text-lg leading-relaxed">
-                        My goal is to write clear, organized code and deeply understand how the pieces fit together.
-                    </p>
-                </div>
-                </div>
-        </section>
-
-        <section id="focus-areas" class="pt-20 pb-20 border-t border-primary theme-transition-element">
-            <h3 class="text-4xl font-bold text-primary-header theme-transition-element mb-10 text-center font-luxury-serif">Core Tools I Am Focusing On</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-
-                <div class="bg-sub-card p-6 rounded-xl shadow-lg border-red-700/30 theme-transition-element transition duration-300 focus-card">
-                    <i data-lucide="component" class="w-8 h-8 text-red-700 mb-3"></i>
-                    <h4 class="text-xl font-semibold text-primary-header theme-transition-element mb-1">React (Frontend)</h4>
-                    <p class="text-sm text-secondary-p theme-transition-element">Building reusable pieces (components) for dynamic and modern websites.</p>
+                <!-- React -->
+                <div class="md:col-span-2 luxury-border p-8 flex flex-col justify-between hover:bg-white/5 transition-colors duration-500 group">
+                    <div class="flex justify-between items-start">
+                        <i data-lucide="atom" class="w-8 h-8 text-gold-400 group-hover:scale-110 transition-transform duration-500"></i>
+                        <span class="text-[10px] font-mono opacity-30">01</span>
+                    </div>
+                    <div>
+                        <h4 class="font-royal text-2xl mb-1 group-hover:text-gold-400 transition-colors">React.js</h4>
+                        <p class="text-xs opacity-50 tracking-wide uppercase">Component Architecture</p>
+                    </div>
                 </div>
 
-                <div class="bg-sub-card p-6 rounded-xl shadow-lg border-red-700/30 theme-transition-element transition duration-300 focus-card">
-                    <i data-lucide="database" class="w-8 h-8 text-red-700 mb-3"></i>
-                    <h4 class="text-xl font-semibold text-primary-header theme-transition-element mb-1">MongoDB (Database)</h4>
-                    <p class="text-sm text-secondary-p theme-transition-element">Learning how to store data efficiently using a flexible, non-SQL format.</p>
+                <!-- Node -->
+                <div class="md:col-span-1 luxury-border p-8 flex flex-col justify-between hover:bg-white/5 transition-colors duration-500 group">
+                    <i data-lucide="server" class="w-6 h-6 opacity-60 group-hover:text-gold-400 transition-colors"></i>
+                    <div>
+                        <h4 class="font-royal text-lg mb-1">Node</h4>
+                        <p class="text-[10px] opacity-50 uppercase">Backend Logic</p>
+                    </div>
                 </div>
 
-                <div class="bg-sub-card p-6 rounded-xl shadow-lg border-red-700/30 theme-transition-element transition duration-300 focus-card">
-                    <i data-lucide="server" class="w-8 h-8 text-red-700 mb-3"></i>
-                    <h4 class="text-xl font-semibold text-primary-header theme-transition-element mb-1">Node/Express (Backend)</h4>
-                    <p class="text-sm text-secondary-p theme-transition-element">Creating the "brain" of the app—building reliable connections (APIs) to handle data.</p>
+                <!-- Mongo -->
+                <div class="md:col-span-1 luxury-border p-8 flex flex-col justify-between hover:bg-white/5 transition-colors duration-500 group">
+                    <i data-lucide="database" class="w-6 h-6 opacity-60 group-hover:text-gold-400 transition-colors"></i>
+                    <div>
+                        <h4 class="font-royal text-lg mb-1">MongoDB</h4>
+                        <p class="text-[10px] opacity-50 uppercase">Data Structures</p>
+                    </div>
                 </div>
 
-                <div class="bg-sub-card p-6 rounded-xl shadow-lg border-red-700/30 theme-transition-element transition duration-300 focus-card">
-                    <i data-lucide="file-code" class="w-8 h-8 text-red-700 mb-3"></i>
-                    <h4 class="text-xl font-semibold text-primary-header theme-transition-element mb-1">JS Proficiency</h4>
-                    <p class="text-sm text-secondary-p theme-transition-element">Learning modern JavaScript features and practicing coding fundamentals.</p>
+                <!-- JS -->
+                <div class="md:col-span-4 luxury-border p-8 flex items-center justify-between hover:bg-white/5 transition-colors duration-500 group">
+                    <div class="flex items-center gap-6">
+                        <i data-lucide="code-2" class="w-10 h-10 text-gold-500 opacity-80"></i>
+                        <div>
+                            <h4 class="font-royal text-3xl group-hover:text-gold-400 transition-colors">JavaScript</h4>
+                            <p class="text-xs opacity-50 tracking-[0.2em] uppercase mt-1">The Foundation of Everything</p>
+                        </div>
+                    </div>
+                    <i data-lucide="arrow-right" class="w-6 h-6 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500 text-gold-400"></i>
                 </div>
             </div>
         </section>
+
+        <!-- STATUS: COMING SOON -->
+        <footer class="min-h-[60vh] flex flex-col justify-center items-center text-center px-6 border-t border-white/5 dark:border-gold-500/10 mt-20 relative">
+            
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold-500/5 via-transparent to-transparent opacity-50 pointer-events-none"></div>
+
+            <span class="inline-block py-1 px-3 rounded border border-current text-[9px] uppercase tracking-[0.3em] mb-10 opacity-50">
+                Status Update
+            </span>
+
+            <h2 class="font-royal text-5xl md:text-7xl lg:text-8xl mb-6 gradient-gold animate-shine-slow opacity-90">
+                Coming Soon
+            </h2>
+
+            <p class="font-light text-sm md:text-base opacity-60 tracking-widest uppercase max-w-md mx-auto leading-loose mb-12">
+                The masterpiece is under construction. <br> 
+                <span class="text-gold-500">Expect Greatness.</span>
+            </p>
+
+            <!-- Social Links Removed -->
+
+            <div class="absolute bottom-8 text-[9px] uppercase tracking-[0.2em] opacity-20">
+                © 2025 Salman Faris
+            </div>
+        </footer>
 
     </main>
 
-    <footer class="bg-card py-8 border-t border-primary theme-transition-element delay-300">
-        <div class="max-w-7xl mx-auto px-4 text-center text-secondary-p theme-transition-element text-sm">
-            &copy; 2025 Salman Faris. All rights reserved.
-        </div>
-    </footer>
-
     <script>
+        // --- Theme Logic ---
         const body = document.body;
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        // NEW: Get the meta tag element
-        const themeColorMeta = document.getElementById('theme-color-meta');
+        const darkModeButton = document.getElementById('dark-mode-button');
 
         /**
-         * Initializes the theme based on local storage or system preference.
+         * Renders the correct Lucide icon based on the current theme state.
+         * @param {boolean} isDark - True if the theme is currently dark.
          */
-        function initializeTheme() {
-            // Check local storage for theme preference
+        function updateIcon(isDark) {
+            // Icon logic: Show 'sun' when currently dark (to switch to light), 'moon' when currently light (to switch to dark)
+            const iconName = isDark ? 'sun' : 'moon'; 
+            
+            // Find the current icon element (must look it up because it's replaced on every toggle)
+            let themeIcon = document.getElementById('theme-icon'); 
+            
+            // 1. Store the classes of the existing icon element
+            const classes = Array.from(themeIcon ? themeIcon.classList : ['w-5', 'h-5']);
+
+            // 2. Clear the button and recreate the icon element to ensure Lucide renders correctly
+            darkModeButton.innerHTML = '';
+            const newIcon = document.createElement('i');
+            newIcon.id = 'theme-icon';
+            newIcon.setAttribute('data-lucide', iconName);
+            newIcon.classList.add(...classes);
+            darkModeButton.appendChild(newIcon);
+
+            // 3. Re-render the icon inside the new container
+            lucide.createIcons({
+                elements: [newIcon]
+            });
+        }
+
+        function initTheme() {
+            // Default to dark mode for luxury feel if no theme is saved
             const savedTheme = localStorage.getItem('theme');
-            // UPDATED: Defaulting to Light Mode
-            let initialTheme = 'light'; 
-
-            if (savedTheme) {
-                initialTheme = savedTheme;
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                // Check system preference. If it's light, we use light.
-                initialTheme = 'light'; 
+            
+            if (savedTheme === 'light') {
+                body.classList.remove('dark');
+                body.classList.add('light');
             } else {
-                 // If no saved theme and system preference is dark or unknown, use light mode default
-                 initialTheme = 'light';
+                body.classList.remove('light');
+                body.classList.add('dark');
             }
-
-            setTheme(initialTheme, false);
+            
+            // Initial icon setup
+            updateIcon(body.classList.contains('dark'));
         }
 
-        /**
-         * Sets the body class, icon, and saves the theme to local storage.
-         * @param {string} theme - 'dark' or 'light'
-         * @param {boolean} save - Whether to save the preference to local storage
-         */
-        function setTheme(theme, save = true) {
-            // 1. Update body class and Theme Toggle label
-            if (theme === 'dark') {
-                body.classList.remove('theme-light');
-                body.classList.add('theme-dark');
-                themeToggle.setAttribute('aria-label', 'Switch to Light Mode');
-                // NEW: Set address bar color to pure black
-                if (themeColorMeta) {
-                    themeColorMeta.setAttribute('content', '#000000'); 
-                }
-            } else {
-                body.classList.remove('theme-dark');
-                body.classList.add('theme-light');
-                themeToggle.setAttribute('aria-label', 'Switch to Dark Mode');
-                // NEW: Set address bar color to very light gray/white
-                if (themeColorMeta) {
-                    themeColorMeta.setAttribute('content', '#f8fafc'); 
-                }
-            }
-
-            // 2. Update icon (using Lucide icons)
-            if (themeIcon) {
-                themeIcon.setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
-                lucide.createIcons();
-            }
-
-            // 3. Save preference
-            if (save) {
-                localStorage.setItem('theme', theme);
-            }
-        }
-
-        /**
-         * Toggles between dark and light themes.
-         */
         function toggleTheme() {
-            const currentTheme = body.classList.contains('theme-dark') ? 'dark' : 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme, true);
+            const isDark = body.classList.contains('dark');
+            if (isDark) {
+                // Switch to light mode
+                body.classList.replace('dark', 'light');
+                localStorage.setItem('theme', 'light');
+                updateIcon(false); // Update icon to moon (suggesting switch to dark)
+            } else {
+                // Switch to dark mode
+                body.classList.replace('light', 'dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcon(true); // Update icon to sun (suggesting switch to light)
+            }
         }
 
-        // --- Event Listeners and Initialization ---
+        // Theme Toggle handler
+        darkModeButton.addEventListener('click', toggleTheme);
 
-        // Initialize icons (must be run before setting the initial icon)
-        lucide.createIcons();
-
-        // Initialize theme on page load
-        initializeTheme();
-
-        // Add click listener to the toggle button
-        themeToggle.addEventListener('click', toggleTheme);
+        // Initialize theme and icons on load
+        initTheme(); 
     </script>
 </body>
 </html>
