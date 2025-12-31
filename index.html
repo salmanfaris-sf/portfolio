@@ -82,6 +82,16 @@
         .high-contrast {
             text-shadow: 0 0 40px rgba(255,255,255,0.1);
         }
+
+        /* Scroll Indicator Pulse */
+        @keyframes scroll-bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        .scroll-hint {
+            animation: scroll-bounce 2s infinite;
+        }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden">
@@ -98,15 +108,25 @@
     </nav>
 
     <!-- Intro -->
-    <section class="min-h-screen flex items-center justify-center px-6 relative z-10">
-        <div class="text-center">
-            <span id="topic-meta" class="text-[10px] uppercase tracking-[0.6em] text-gold-dust mb-8 block reveal">PROTOCOL 01</span>
+    <section class="min-h-screen flex flex-col items-center justify-center px-6 relative z-10">
+        <div class="text-center flex-grow flex flex-col justify-center">
+            <span id="topic-meta" class="text-[10px] uppercase tracking-[0.6em] text-gold-dust mb-8 block reveal">PROTOCOL</span>
             <h1 id="hero-title" class="font-display text-8xl md:text-[14rem] italic tracking-tighter leading-none reveal" style="transition-delay: 0.2s;">
-                The <span class="text-white not-italic">Ghost</span>
+                The <span class="text-white not-italic">Loading</span>
             </h1>
             <p id="hero-sub" class="font-sans text-[10px] uppercase tracking-[0.4em] mt-8 opacity-30 reveal" style="transition-delay: 0.4s;">
-                Living for no one but the mirror.
+                Preparing your daily directive.
             </p>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="pb-10 reveal" style="transition-delay: 0.8s;">
+            <div class="flex flex-col items-center gap-4 opacity-40">
+                <span class="text-[8px] uppercase tracking-[0.8em]">Scroll Down</span>
+                <div class="scroll-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -120,7 +140,7 @@
         <h3 class="font-display text-6xl md:text-8xl italic mb-12 high-contrast">New Wisdom Daily.</h3>
         <div class="w-24 h-px bg-gold-dust mb-12"></div>
         <div class="text-[10px] uppercase tracking-[0.5em] text-gray-600 mb-4">
-            Topics Update Automatically Every 24 Hours
+            100 Days of Unique Protocols • Updates Every 24 Hours
         </div>
         <div class="text-[10px] uppercase tracking-[0.3em] text-gray-800">
             Salman Faris • Sovereign Year
@@ -131,7 +151,7 @@
     </footer>
 
     <script>
-        // 1. LIVE TIME ENGINE (12-hour format, no seconds)
+        // 1. LIVE TIME ENGINE
         function updateTime() {
             const now = new Date();
             const options = { hour: '2-digit', minute: '2-digit', hour12: true };
@@ -161,42 +181,39 @@
             lastScroll = currentScroll;
         });
 
-        // 3. DAILY CONTENT ENGINE (Expanded to demonstrate cycling)
-        const protocols = [
-            {
-                title: "Ghost",
-                meta: "PROTOCOL 01: INVISIBILITY",
-                sub: "Living for no one but the mirror.",
-                p1: "The world wants you distracted. It feeds on your attention and leaves you with hollow echoes. To truly live, you must first disappear.",
-                p2: "Delete the feed. Burn the digital validation. True power is found in the silence of the early morning and the weight of a heavy task.",
-                p3: "Hard work is not a chore; it is worship. It is the only honest way to pay for the space you occupy. Take the stairs of discipline.",
-                p4: "Your potential is strangled by comfort. Wake up. Sweat. Build. Suffer if you must, but do not waste your only currency: Time."
-            },
-            {
-                title: "Obsidian",
-                meta: "PROTOCOL 02: HARDNESS",
-                sub: "Forged in the pressure of silence.",
-                p1: "Comfort is a slow poison. It numbs the mind and softens the spirit. Seek the friction, for only friction creates the heat of growth.",
-                p2: "Stop seeking applause for things you haven't finished. The loudest man in the room is often the weakest. Let your results scream.",
-                p3: "Social media is a curated lie. Your reality is the only thing that matters. Build a life you don't need to post about to feel alive.",
-                p4: "Every minute you spend scrolling is a minute you donate to another person's dream. Reclaim your focus. Reclaim your life."
-            },
-            {
-                title: "Sovereign",
-                meta: "PROTOCOL 03: AUTONOMY",
-                sub: "You are the master of your clock.",
-                p1: "Dependency is the ultimate cage. Whether it's the dependency on a scroll, a like, or an easy path—break the bars today.",
-                p2: "Focus is the new IQ. In an age of infinite distraction, the ability to do deep work is a superpower that few will ever possess.",
-                p3: "Discipline is the highest form of self-love. It is the promise you make to your future self that you will not fail them.",
-                p4: "The clock does not care about your feelings. It only records your actions. Make every second count towards your evolution."
+        // 3. 100-TOPIC GENERATOR ENGINE
+        const nouns = ["Ghost", "Obsidian", "Sovereign", "Shadow", "Monolith", "Vanguard", "Architect", "Titan", "Phantom", "Summit", "Void", "Engine", "Pulse", "Citadel", "Oracle", "Static", "Zenith", "Nadir", "Echo", "Steel", "Anchor", "Flow", "Impact", "Silence", "Will", "Fire", "Stone", "Wind", "Aura", "Core", "Drift", "Prism", "Edge", "Frame", "Nexus", "Root", "Stem", "Vertex", "Grit", "Flow", "Breath", "Logic", "Force", "Path", "Gaze", "Hand", "Eyes", "Skin", "Bone", "Soul"];
+        const themes = ["Discipline", "Focus", "Silence", "Strength", "Solitude", "Action", "Mindset", "Wealth", "Health", "Stoicism", "Minimalism", "Purity", "Gravity", "Velocity", "Power", "Truth", "Legacy", "Origin", "Reason", "Habit"];
+        
+        function generateProtocols(count) {
+            const list = [];
+            for (let i = 1; i <= count; i++) {
+                const n1 = nouns[i % nouns.length];
+                const t1 = themes[i % themes.length];
+                list.push({
+                    title: n1,
+                    meta: `PROTOCOL ${String(i).padStart(3, '0')}: ${t1.toUpperCase()}`,
+                    sub: `Day ${i} of the relentless pursuit.`,
+                    p1: `Everything in this world is designed to steal your focus. From the notifications on your screen to the noise in your street. True ${t1} begins when you shut the world out and look within.`,
+                    p2: `Delete the noise. Burn the validation. Success is a quiet room and a focused mind. You don't need to be seen until the work is done. Let your progress remain a secret until it becomes undeniable.`,
+                    p3: `The path of ${n1} is not for the faint of heart. It requires the sacrifice of your comfort. It demands that you work when you are tired and speak only when it is necessary.`,
+                    p4: `Stop wasting your hours on the feed. Your legacy is being written right now. If you don't choose your path, the world will choose a mediocre one for you. Reclaim your time.`
+                });
             }
-            // Add up to 30 objects here for 30 days.
-        ];
+            return list;
+        }
+
+        const allProtocols = generateProtocols(100);
 
         function loadDailyContent() {
-            const dayOfMonth = new Date().getDate();
-            const index = (dayOfMonth - 1) % protocols.length;
-            const data = protocols[index];
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            const index = dayOfYear % 100;
+            const data = allProtocols[index];
 
             document.getElementById('topic-meta').textContent = data.meta;
             document.getElementById('hero-title').innerHTML = `The <span class="text-white not-italic">${data.title}</span>`;
