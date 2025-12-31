@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1K1TKBQFFK"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -11,16 +10,13 @@
       gtag('js', new Date());
       gtag('config', 'G-1K1TKBQFFK');
     </script>
-    
-    <!-- Sets the status bar color for mobile browsers -->
     <meta name="theme-color" content="#050505">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Daily Wisdom.</title>
+    <title>THE MANIFESTO | THE UNSEEN LIFE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Inter:wght@200;400&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
@@ -37,13 +33,11 @@
             }
         }
     </script>
-
     <style>
         html, body {
             height: 100%;
             margin: 0;
         }
-
         body {
             background-color: #050505;
             color: #ffffff;
@@ -51,8 +45,6 @@
             display: flex;
             flex-direction: column;
         }
-
-        /* Blurry Header Styling */
         nav {
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
                         opacity 0.6s ease, 
@@ -62,33 +54,27 @@
             backdrop-filter: blur(0px);
             -webkit-backdrop-filter: blur(0px);
         }
-
         nav.scrolled {
             background-color: rgba(5, 5, 5, 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         nav.nav-hidden {
             transform: translateY(-100%);
             opacity: 0;
         }
-
-        /* Smooth Scroll Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
             filter: blur(15px);
             transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
             filter: blur(0px);
         }
-
         .glow {
             position: fixed;
             top: 50%;
@@ -100,36 +86,29 @@
             pointer-events: none;
             z-index: 0;
         }
-
         .text-indent {
             text-indent: 10rem;
         }
-
         @media (max-width: 768px) {
             .text-indent {
                 text-indent: 0rem;
             }
         }
-
         .high-contrast {
             text-shadow: 0 0 40px rgba(255,255,255,0.1);
         }
-
         @keyframes scroll-bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-10px);}
             60% {transform: translateY(-5px);}
         }
-        
         @keyframes fade-in-up {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 0.4; transform: translateY(0); }
         }
-
         .scroll-hint {
             animation: scroll-bounce 2s infinite;
         }
-
         .immediate-visible {
             animation: fade-in-up 2s ease-out forwards;
             animation-delay: 1.5s;
@@ -138,9 +117,7 @@
     </style>
 </head>
 <body class="antialiased overflow-x-hidden">
-
     <div class="glow"></div>
-
     <nav id="main-nav" class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center">
         <span class="font-display italic text-xl tracking-tighter text-white">SF</span>
         <div class="text-right">
@@ -148,7 +125,6 @@
             <div id="live-date" class="text-[9px] uppercase tracking-[0.4em] opacity-40 text-white">JAN 01 / 2026</div>
         </div>
     </nav>
-
     <main class="flex-grow">
         <section class="min-h-screen flex flex-col items-center justify-center px-6 relative z-10">
             <div class="h-20"></div>
@@ -161,7 +137,6 @@
                     Preparing your yearly directive.
                 </p>
             </div>
-
             <div class="pb-32 immediate-visible">
                 <div class="flex flex-col items-center gap-4">
                     <span class="text-[8px] uppercase tracking-[0.8em]">Scroll Down</span>
@@ -171,13 +146,9 @@
                 </div>
             </div>
         </section>
-
         <article id="content-area" class="max-w-screen-xl mx-auto px-6 py-40 relative z-10 space-y-60">
-            <!-- Content injected via JS -->
         </article>
     </main>
-
-    <!-- Footer - Pinned to the very bottom end of the document -->
     <footer class="w-full flex flex-col items-center justify-center text-center px-6 pt-60 pb-8 relative z-10 reveal">
         <h3 class="font-display text-7xl md:text-9xl italic mb-10 high-contrast text-white">New Wisdom Daily.</h3>
         <div class="w-24 h-px bg-gold-dust mb-10 opacity-50"></div>
@@ -190,14 +161,11 @@
             </div>
         </div>
     </footer>
-
     <script>
         function updateTime() {
             const now = new Date();
-            const options = { hour: '2-digit', minute: '2-digit', hour12: true };
-            const timeStr = now.toLocaleTimeString('en-US', options).toLowerCase();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }).toLowerCase();
             const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase().replace(',', ' /');
-            
             document.getElementById('live-time').textContent = timeStr;
             document.getElementById('live-date').textContent = dateStr;
         }
@@ -208,11 +176,7 @@
         const nav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
             const currentScroll = window.pageYOffset;
-            if (currentScroll > 20) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+            currentScroll > 20 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
             if (currentScroll <= 0) {
                 nav.classList.remove('nav-hidden');
                 return;
@@ -233,10 +197,9 @@
             for (let i = 0; i < count; i++) {
                 const n1 = nouns[i % nouns.length];
                 const t1 = themes[i % themes.length];
-                const dayNum = i + 1;
                 list.push({
                     title: n1,
-                    meta: `PROTOCOL ${String(dayNum).padStart(3, '0')}: ${t1.toUpperCase()}`,
+                    meta: `PROTOCOL ${String(i + 1).padStart(3, '0')}: ${t1.toUpperCase()}`,
                     sub: `The transformation continues.`, 
                     p1: `This year is a blank canvas, but most will smudge it with the fingerprints of others. True ${t1} is the refusal to let the digital noise dictate your internal tempo. You are the conductor.`,
                     p2: `Delete the apps that drain you. Silence the voices that don't build you. The scroll is a drug, and attention is the currency you are throwing away. Reclaim it today. Stay in the shadows until you are ready to shine.`,
@@ -251,22 +214,16 @@
 
         function loadDailyContent() {
             const now = new Date();
-            // Create a date object for the first day of the current year
             const startOfYear = new Date(now.getFullYear(), 0, 1);
-            // Calculate difference in milliseconds and convert to days
             const diff = now - startOfYear;
-            const oneDay = 1000 * 60 * 60 * 24;
-            // Math.floor(diff / oneDay) will be 0 on January 1st
-            const dayIndex = Math.floor(diff / oneDay);
-            
-            const index = dayIndex % 365;
-            const data = allProtocols[index];
+            const dayIndex = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const data = allProtocols[dayIndex % 365];
 
             document.getElementById('topic-meta').textContent = data.meta;
             document.getElementById('hero-title').innerHTML = `The <span class="text-white not-italic">${data.title}</span>`;
             document.getElementById('hero-sub').textContent = data.sub;
 
-            const contentHTML = `
+            document.getElementById('content-area').innerHTML = `
                 <div class="reveal">
                     <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-400 text-indent">
                         ${data.p1.split(' ').slice(0, -2).join(' ')} <span class="text-white italic">${data.p1.split(' ').slice(-2).join(' ')}</span>.
@@ -291,19 +248,15 @@
                     </p>
                 </div>
             `;
-            document.getElementById('content-area').innerHTML = contentHTML;
         }
 
         loadDailyContent();
 
-        const observerOptions = { threshold: 0.05, rootMargin: '0px 0px -100px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
+        }, { threshold: 0.05, rootMargin: '0px 0px -100px 0px' });
 
         setTimeout(() => {
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
