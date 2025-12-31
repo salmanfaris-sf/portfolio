@@ -39,17 +39,37 @@
     </script>
 
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
         body {
             background-color: #050505;
             color: #ffffff;
             scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Auto-hide header logic */
+        /* Blurry Header Styling */
         nav {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
-            background-color: #050505; 
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.6s ease, 
+                        background-color 0.4s ease, 
+                        backdrop-filter 0.4s ease;
+            background-color: rgba(5, 5, 5, 0); 
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
         }
+
+        nav.scrolled {
+            background-color: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         nav.nav-hidden {
             transform: translateY(-100%);
             opacity: 0;
@@ -69,7 +89,6 @@
             filter: blur(0px);
         }
 
-        /* Subtle Gradient Glow */
         .glow {
             position: fixed;
             top: 50%;
@@ -96,14 +115,25 @@
             text-shadow: 0 0 40px rgba(255,255,255,0.1);
         }
 
-        /* Scroll Indicator Pulse */
         @keyframes scroll-bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-10px);}
             60% {transform: translateY(-5px);}
         }
+        
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.4; transform: translateY(0); }
+        }
+
         .scroll-hint {
             animation: scroll-bounce 2s infinite;
+        }
+
+        .immediate-visible {
+            animation: fade-in-up 2s ease-out forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
         }
     </style>
 </head>
@@ -111,62 +141,57 @@
 
     <div class="glow"></div>
 
-    <!-- Header (Self-hiding) -->
-    <nav id="main-nav" class="fixed top-0 w-full z-50 p-8 flex justify-between items-center mix-blend-difference">
-        <span class="font-display italic text-xl tracking-tighter">SF</span>
+    <nav id="main-nav" class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center">
+        <span class="font-display italic text-xl tracking-tighter text-white">SF</span>
         <div class="text-right">
             <div id="live-time" class="text-[11px] font-sans tracking-[0.2em] font-medium uppercase text-white">00:00 PM</div>
-            <div id="live-date" class="text-[9px] uppercase tracking-[0.4em] opacity-40 text-white">DEC 31 / 2025</div>
+            <div id="live-date" class="text-[9px] uppercase tracking-[0.4em] opacity-40 text-white">JAN 01 / 2026</div>
         </div>
     </nav>
 
-    <!-- Intro -->
-    <section class="min-h-screen flex flex-col items-center justify-center px-6 relative z-10">
-        <div class="h-20"></div>
-        
-        <div class="text-center flex-grow flex flex-col justify-center">
-            <span id="topic-meta" class="text-[10px] uppercase tracking-[0.6em] text-gold-dust mb-8 block reveal">PROTOCOL</span>
-            <h1 id="hero-title" class="font-display text-8xl md:text-[14rem] italic tracking-tighter leading-none reveal" style="transition-delay: 0.2s;">
-                The <span class="text-white not-italic">Loading</span>
-            </h1>
-            <p id="hero-sub" class="font-sans text-[10px] uppercase tracking-[0.4em] mt-8 opacity-30 reveal" style="transition-delay: 0.4s;">
-                Preparing your yearly directive.
-            </p>
-        </div>
+    <main class="flex-grow">
+        <section class="min-h-screen flex flex-col items-center justify-center px-6 relative z-10">
+            <div class="h-20"></div>
+            <div class="text-center flex-grow flex flex-col justify-center">
+                <span id="topic-meta" class="text-[10px] uppercase tracking-[0.6em] text-gold-dust mb-8 block reveal">PROTOCOL</span>
+                <h1 id="hero-title" class="font-display text-8xl md:text-[14rem] italic tracking-tighter leading-none reveal" style="transition-delay: 0.2s;">
+                    The <span class="text-white not-italic">Loading</span>
+                </h1>
+                <p id="hero-sub" class="font-sans text-[10px] uppercase tracking-[0.4em] mt-8 opacity-30 reveal" style="transition-delay: 0.4s;">
+                    Preparing your yearly directive.
+                </p>
+            </div>
 
-        <!-- Scroll Indicator -->
-        <div class="pb-32 reveal" style="transition-delay: 0.8s;">
-            <div class="flex flex-col items-center gap-4 opacity-40">
-                <span class="text-[8px] uppercase tracking-[0.8em]">Scroll Down</span>
-                <div class="scroll-hint">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            <div class="pb-32 immediate-visible">
+                <div class="flex flex-col items-center gap-4">
+                    <span class="text-[8px] uppercase tracking-[0.8em]">Scroll Down</span>
+                    <div class="scroll-hint">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- The Manifesto -->
-    <article id="content-area" class="max-w-screen-xl mx-auto px-6 py-40 relative z-10 space-y-60">
-        <!-- Content injected via JS -->
-    </article>
+        <article id="content-area" class="max-w-screen-xl mx-auto px-6 py-40 relative z-10 space-y-60">
+            <!-- Content injected via JS -->
+        </article>
+    </main>
 
-    <!-- Final Call -->
-    <footer class="min-h-screen flex flex-col items-center justify-center text-center px-6 reveal">
-        <h3 class="font-display text-6xl md:text-8xl italic mb-12 high-contrast">New Wisdom Daily.</h3>
-        <div class="w-24 h-px bg-gold-dust mb-12"></div>
-        <div class="text-[10px] uppercase tracking-[0.5em] text-gray-600 mb-4">
-            365 Days of Unique Protocols • A Full Year of Focus
+    <!-- Footer - Pinned to the very bottom end of the document -->
+    <footer class="w-full flex flex-col items-center justify-center text-center px-6 pt-60 pb-8 relative z-10 reveal">
+        <h3 class="font-display text-7xl md:text-9xl italic mb-10 high-contrast text-white">New Wisdom Daily.</h3>
+        <div class="w-24 h-px bg-gold-dust mb-10 opacity-50"></div>
+        <div class="space-y-4">
+            <div class="text-[10px] uppercase tracking-[0.5em] text-gray-500">
+                365 Days of Unique Protocols • A Full Year of Focus
+            </div>
+            <div class="text-[10px] uppercase tracking-[0.3em] text-gray-700">
+                Salman Faris • Sovereign Year 2026
+            </div>
         </div>
-        <div class="text-[10px] uppercase tracking-[0.3em] text-gray-800">
-            Salman Faris • Sovereign Year 2026
-        </div>
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="mt-20 text-gold-dust hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-        </button>
     </footer>
 
     <script>
-        // 1. LIVE TIME ENGINE
         function updateTime() {
             const now = new Date();
             const options = { hour: '2-digit', minute: '2-digit', hour12: true };
@@ -179,24 +204,27 @@
         setInterval(updateTime, 1000);
         updateTime();
 
-        // 2. SELF-HIDING HEADER
         let lastScroll = 0;
         const nav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
             const currentScroll = window.pageYOffset;
+            if (currentScroll > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
             if (currentScroll <= 0) {
                 nav.classList.remove('nav-hidden');
                 return;
             }
-            if (currentScroll > lastScroll && !nav.classList.contains('nav-hidden')) {
+            if (currentScroll > lastScroll && currentScroll > 100) {
                 nav.classList.add('nav-hidden');
-            } else if (currentScroll < lastScroll && nav.classList.contains('nav-hidden')) {
+            } else if (currentScroll < lastScroll) {
                 nav.classList.remove('nav-hidden');
             }
             lastScroll = currentScroll;
         });
 
-        // 3. 365-TOPIC GENERATOR ENGINE
         const nouns = ["Ghost", "Obsidian", "Sovereign", "Shadow", "Monolith", "Vanguard", "Architect", "Titan", "Phantom", "Summit", "Void", "Engine", "Pulse", "Citadel", "Oracle", "Static", "Zenith", "Nadir", "Echo", "Steel", "Anchor", "Flow", "Impact", "Silence", "Will", "Fire", "Stone", "Wind", "Aura", "Core", "Drift", "Prism", "Edge", "Frame", "Nexus", "Root", "Stem", "Vertex", "Grit", "Flow", "Breath", "Logic", "Force", "Path", "Gaze", "Hand", "Eyes", "Skin", "Bone", "Soul", "Veil", "Crown", "Throne", "Spark", "Omen", "Sentry", "Crypt", "Bolt", "Iron", "Glint", "Depth", "High", "Low", "Wide", "Dark", "Light", "Pure", "Rare", "Old", "New", "True", "Deep", "Cold", "Hard", "Fast", "Slow", "Last"];
         const themes = ["Discipline", "Focus", "Silence", "Strength", "Solitude", "Action", "Mindset", "Wealth", "Health", "Stoicism", "Minimalism", "Purity", "Gravity", "Velocity", "Power", "Truth", "Legacy", "Origin", "Reason", "Habit", "Intent", "Rigor", "Vision", "Duty", "Honor", "Dignity", "Order", "Chaos", "Mercy", "Resolve", "Faith", "Pride", "Fear", "Love", "Pain"];
         
@@ -209,7 +237,7 @@
                 list.push({
                     title: n1,
                     meta: `PROTOCOL ${String(dayNum).padStart(3, '0')}: ${t1.toUpperCase()}`,
-                    sub: `The transformation continues.`, // Removed "Step X of 365"
+                    sub: `The transformation continues.`, 
                     p1: `This year is a blank canvas, but most will smudge it with the fingerprints of others. True ${t1} is the refusal to let the digital noise dictate your internal tempo. You are the conductor.`,
                     p2: `Delete the apps that drain you. Silence the voices that don't build you. The scroll is a drug, and attention is the currency you are throwing away. Reclaim it today. Stay in the shadows until you are ready to shine.`,
                     p3: `The path of the ${n1} is forged in the hours nobody sees. It is the workout at 5 AM. It is the reading at midnight. It is the choice to say 'no' to temporary pleasure for the sake of permanent growth.`,
@@ -223,12 +251,15 @@
 
         function loadDailyContent() {
             const now = new Date();
-            const start = new Date(now.getFullYear(), 0, 0);
-            const diff = now - start;
+            // Create a date object for the first day of the current year
+            const startOfYear = new Date(now.getFullYear(), 0, 1);
+            // Calculate difference in milliseconds and convert to days
+            const diff = now - startOfYear;
             const oneDay = 1000 * 60 * 60 * 24;
-            const dayOfYear = Math.floor(diff / oneDay);
+            // Math.floor(diff / oneDay) will be 0 on January 1st
+            const dayIndex = Math.floor(diff / oneDay);
             
-            const index = dayOfYear % 365;
+            const index = dayIndex % 365;
             const data = allProtocols[index];
 
             document.getElementById('topic-meta').textContent = data.meta;
