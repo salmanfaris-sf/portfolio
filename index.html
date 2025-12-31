@@ -3,13 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1K1TKBQFFK"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-1K1TKBQFFK');
-    </script>
     <meta name="theme-color" content="#050505">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Daily Wisdom.</title>
@@ -37,9 +30,9 @@
         html, body {
             height: 100%;
             margin: 0;
+            background-color: #050505;
         }
         body {
-            background-color: #050505;
             color: #ffffff;
             scroll-behavior: smooth;
             display: flex;
@@ -50,9 +43,6 @@
                         opacity 0.6s ease, 
                         background-color 0.4s ease, 
                         backdrop-filter 0.4s ease;
-            background-color: rgba(5, 5, 5, 0); 
-            backdrop-filter: blur(0px);
-            -webkit-backdrop-filter: blur(0px);
         }
         nav.scrolled {
             background-color: rgba(5, 5, 5, 0.7);
@@ -97,22 +87,43 @@
         .high-contrast {
             text-shadow: 0 0 40px rgba(255,255,255,0.1);
         }
-        @keyframes scroll-bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
+
+        /* Footer Wisdom Glow */
+        .wisdom-glow {
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.15),
+                         0 0 40px rgba(255, 255, 255, 0.05);
+            transition: text-shadow 1s ease;
+        }
+        .reveal.active .wisdom-glow {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3),
+                         0 0 60px rgba(255, 255, 255, 0.1);
+        }
+
+        .scroll-label {
+            font-size: 10px;
+            letter-spacing: 0.8em;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            opacity: 0.3;
+        }
+        .immediate-visible {
+            opacity: 0;
+            animation: fade-in-up 2.5s ease-out forwards;
+            animation-delay: 1s;
         }
         @keyframes fade-in-up {
             from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 0.4; transform: translateY(0); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .scroll-hint {
-            animation: scroll-bounce 2s infinite;
-        }
-        .immediate-visible {
-            animation: fade-in-up 2s ease-out forwards;
-            animation-delay: 1.5s;
-            opacity: 0;
+        .quote-bracket::before {
+            content: "“";
+            position: absolute;
+            left: -1rem;
+            top: -1.5rem;
+            opacity: 0.15;
+            font-size: 5rem;
+            font-family: serif;
         }
     </style>
 </head>
@@ -129,28 +140,28 @@
         <section class="min-h-screen flex flex-col items-center justify-center px-6 relative z-10">
             <div class="h-20"></div>
             <div class="text-center flex-grow flex flex-col justify-center">
-                <span id="topic-meta" class="text-[10px] uppercase tracking-[0.6em] text-gold-dust mb-8 block reveal">PROTOCOL</span>
+                <span id="protocol-id" class="text-[10px] uppercase tracking-[1em] text-gold-dust mb-8 block reveal font-sans">PROTOCOL 001</span>
                 <h1 id="hero-title" class="font-display text-8xl md:text-[14rem] italic tracking-tighter leading-none reveal" style="transition-delay: 0.2s;">
-                    The <span class="text-white not-italic">Loading</span>
+                    The <span class="text-white not-italic">Directive</span>
                 </h1>
-                <p id="hero-sub" class="font-sans text-[10px] uppercase tracking-[0.4em] mt-8 opacity-30 reveal" style="transition-delay: 0.4s;">
-                    Preparing your yearly directive.
-                </p>
-            </div>
-            <div class="pb-32 immediate-visible">
-                <div class="flex flex-col items-center gap-4">
-                    <span class="text-[8px] uppercase tracking-[0.8em]">Scroll Down</span>
-                    <div class="scroll-hint">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                    </div>
+                
+                <div class="max-w-2xl mx-auto mt-16 mb-6 relative reveal" style="transition-delay: 0.3s;">
+                    <blockquote id="daily-quote" class="font-display text-2xl md:text-4xl italic text-gray-300 quote-bracket px-4 leading-snug">
+                        "Your future is being written in the silences you keep today."
+                    </blockquote>
                 </div>
             </div>
+            <div class="pb-16 immediate-visible">
+                <div class="scroll-label">Scroll Down</div>
+            </div>
         </section>
+        
         <article id="content-area" class="max-w-screen-xl mx-auto px-6 py-40 relative z-10 space-y-60">
+            <!-- Dynamic Content Here -->
         </article>
     </main>
     <footer class="w-full flex flex-col items-center justify-center text-center px-6 pt-60 pb-8 relative z-10 reveal">
-        <h3 class="font-display text-7xl md:text-9xl italic mb-10 high-contrast text-white">New Wisdom Daily.</h3>
+        <h3 class="font-display text-7xl md:text-9xl italic mb-10 wisdom-glow">New Wisdom Daily.</h3>
         <div class="w-24 h-px bg-gold-dust mb-10 opacity-50"></div>
         <div class="space-y-4">
             <div class="text-[10px] uppercase tracking-[0.5em] text-gray-500">
@@ -161,6 +172,7 @@
             </div>
         </div>
     </footer>
+
     <script>
         function updateTime() {
             const now = new Date();
@@ -172,6 +184,7 @@
         setInterval(updateTime, 1000);
         updateTime();
 
+        // Nav Scroll Handling
         let lastScroll = 0;
         const nav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
@@ -189,22 +202,30 @@
             lastScroll = currentScroll;
         });
 
-        const nouns = ["Ghost", "Obsidian", "Sovereign", "Shadow", "Monolith", "Vanguard", "Architect", "Titan", "Phantom", "Summit", "Void", "Engine", "Pulse", "Citadel", "Oracle", "Static", "Zenith", "Nadir", "Echo", "Steel", "Anchor", "Flow", "Impact", "Silence", "Will", "Fire", "Stone", "Wind", "Aura", "Core", "Drift", "Prism", "Edge", "Frame", "Nexus", "Root", "Stem", "Vertex", "Grit", "Flow", "Breath", "Logic", "Force", "Path", "Gaze", "Hand", "Eyes", "Skin", "Bone", "Soul", "Veil", "Crown", "Throne", "Spark", "Omen", "Sentry", "Crypt", "Bolt", "Iron", "Glint", "Depth", "High", "Low", "Wide", "Dark", "Light", "Pure", "Rare", "Old", "New", "True", "Deep", "Cold", "Hard", "Fast", "Slow", "Last"];
-        const themes = ["Discipline", "Focus", "Silence", "Strength", "Solitude", "Action", "Mindset", "Wealth", "Health", "Stoicism", "Minimalism", "Purity", "Gravity", "Velocity", "Power", "Truth", "Legacy", "Origin", "Reason", "Habit", "Intent", "Rigor", "Vision", "Duty", "Honor", "Dignity", "Order", "Chaos", "Mercy", "Resolve", "Faith", "Pride", "Fear", "Love", "Pain"];
+        const themeMap = {
+            "Self Discipline": "Success is not final; failure is not fatal: it is the courage to continue that counts.",
+            "Deep Focus": "The successful warrior is the average man, with laser-like focus.",
+            "Golden Silence": "Work hard in silence, let your success be your noise.",
+            "True Strength": "What does not kill me makes me stronger.",
+            "Inner Calm": "He who is at peace with himself is at peace with the world.",
+            "Swift Action": "The path to success is to take massive, determined action."
+        };
+
+        const themes = Object.keys(themeMap);
         
         function generateProtocols(count) {
             const list = [];
             for (let i = 0; i < count; i++) {
-                const n1 = nouns[i % nouns.length];
-                const t1 = themes[i % themes.length];
+                const theme = themes[i % themes.length];
+                const quote = themeMap[theme];
                 list.push({
-                    title: n1,
-                    meta: `PROTOCOL ${String(i + 1).padStart(3, '0')}: ${t1.toUpperCase()}`,
-                    sub: `The transformation continues.`, 
-                    p1: `This year is a blank canvas, but most will smudge it with the fingerprints of others. True ${t1} is the refusal to let the digital noise dictate your internal tempo. You are the conductor.`,
-                    p2: `Delete the apps that drain you. Silence the voices that don't build you. The scroll is a drug, and attention is the currency you are throwing away. Reclaim it today. Stay in the shadows until you are ready to shine.`,
-                    p3: `The path of the ${n1} is forged in the hours nobody sees. It is the workout at 5 AM. It is the reading at midnight. It is the choice to say 'no' to temporary pleasure for the sake of permanent growth.`,
-                    p4: `Hard work is the only honest response to the gift of life. Do not waste another 24 hours. Move with purpose, speak with intent, and build a reality that requires no filters to be beautiful.`
+                    protocolId: `PROTOCOL ${String(i + 1).padStart(3, '0')}`,
+                    title: theme,
+                    quote: quote,
+                    p1: `This year is a blank canvas, but most will smudge it with the fingerprints of others. Practicing ${theme} is the refusal to let the digital noise dictate your internal tempo.`,
+                    p2: `Delete the distractions that drain your essence. Silence the voices that offer no structure to your growth. Reclaim it today.`,
+                    p3: `${theme.toUpperCase()} is forged in the invisible hours. It is the decision made when no one is watching. It is the internal commitment to a standard that others find unreasonable but you find necessary.`,
+                    p4: `Hard work is the only honest response to the gift of life. Do not waste another 24 hours in hesitation. Move with purpose, speak with intent, and build a reality that requires no filters to be beautiful.`
                 });
             }
             return list;
@@ -219,48 +240,47 @@
             const dayIndex = Math.floor(diff / (1000 * 60 * 60 * 24));
             const data = allProtocols[dayIndex % 365];
 
-            document.getElementById('topic-meta').textContent = data.meta;
+            document.getElementById('protocol-id').textContent = data.protocolId;
             document.getElementById('hero-title').innerHTML = `The <span class="text-white not-italic">${data.title}</span>`;
-            document.getElementById('hero-sub').textContent = data.sub;
+            document.getElementById('daily-quote').textContent = `"${data.quote}"`;
 
             document.getElementById('content-area').innerHTML = `
                 <div class="reveal">
-                    <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-400 text-indent">
-                        ${data.p1.split(' ').slice(0, -2).join(' ')} <span class="text-white italic">${data.p1.split(' ').slice(-2).join(' ')}</span>.
+                    <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-400 text-indent narrative-text">
+                        ${data.p1}
                     </p>
                 </div>
                 <div class="reveal">
-                    <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-100">
+                    <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-100 narrative-text">
                         ${data.p2}
                     </p>
                 </div>
                 <div class="py-20 text-center reveal">
-                    <h2 class="font-display text-7xl md:text-[12rem] italic text-gold-dust opacity-20">NO WITNESSES.</h2>
+                    <h2 class="font-display text-7xl md:text-[12rem] italic text-gold-dust opacity-20">ABSOLUTE WILL.</h2>
                 </div>
                 <div class="reveal">
-                    <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-400 text-indent">
+                    <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-400 text-indent narrative-text">
                         ${data.p3}
                     </p>
                 </div>
                 <div class="reveal">
-                    <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-100">
+                    <p class="font-display text-5xl md:text-7xl leading-[1.1] text-gray-100 narrative-text">
                         ${data.p4}
                     </p>
                 </div>
             `;
         }
 
-        loadDailyContent();
+        window.onload = () => {
+            loadDailyContent();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.05, rootMargin: '0px 0px -100px 0px' });
-
-        setTimeout(() => {
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        }, 100);
+        };
     </script>
 </body>
 </html>
